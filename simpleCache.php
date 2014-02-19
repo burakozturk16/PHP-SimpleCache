@@ -73,6 +73,19 @@ class SimpleCache {
 	{
 		return preg_replace('/[^0-9a-z\.\_\-]/i','', strtolower($filename));
 	}
+	
+	
+	function render($label,$url){
+		if($this->is_cached($label)){
+			$data = $this->get_cache($label);
+			return $data;
+		}else{
+			$data = $this->do_curl($url);
+			$this->set_cache($label, $data);
+			return $data;		
+		}
+	}	
+	
 }
 
 ?>
